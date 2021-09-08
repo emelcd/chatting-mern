@@ -59,7 +59,7 @@ app.get("/chat", (req, res) => {
         if (err) {
             res.status(500).send(err);
         } else {
-            res.send(chats.reverse().slice(0, 20));
+            res.send(chats.reverse());
         }
     });
 });
@@ -89,6 +89,18 @@ app.get('/user', (req, res) => {
     });
 
 })
+
+app.get('/delete', (req, res) => {
+    Chat.deleteMany({}, (err, chat) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.send(chat);
+        }
+    });
+})
+          
+
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000");

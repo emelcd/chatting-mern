@@ -1,5 +1,5 @@
 body {
-  background-color: #282c34;
+  background-color: #111418;
 }
 
 .App {
@@ -38,10 +38,18 @@ body {
   width: 100%;
   margin: 1rem;
   padding: 1rem;
+  background-color: #aaaaaa;
+  outline: none;
+  border: none;
+}
+
+.App-contact input:focus {
+  outline: none;
+  border: none;
 }
 
 .App-chat {
-  background-color: #282c34;
+  background-color: #111418;
   border-radius: 2rem;
   padding: 1rem;
   overflow-y: scroll;
@@ -54,7 +62,7 @@ body {
   margin: 1rem;
   border-radius: 2rem;
   overflow-y: scroll;
-  height: 75%;
+  height: 80%;
 }
 
 .App-chat .chat .header {
@@ -159,7 +167,7 @@ body {
 
 .App-chat .chat .content .message .body .date {
   text-align: right;
-  font-size: 1rem;
+  font-size: .8rem;
 }
 
 .App-chat .chat .content .message .body:hover {

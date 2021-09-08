@@ -42,6 +42,7 @@ const App = () => {
       });
   }, []);
 
+
   const ContactItem = ({ item, index }) => {
     console.log(item._id === user._id);
     let check = item._id === user._id ? true : false;
@@ -75,16 +76,17 @@ const App = () => {
     // return data
     let userData = data.find((user) => user._id === item.user_id);
     let check = user._id === item.user_id
+    console.log(userData)
     return (
       <div className="message">
         <div className="user">
           <img className="img" src={userData.picture} alt="avatar" />
         </div>
-        <div className="body" style={{backgroundColor: check ? '#9699A0' : '#282C34'}}>
+        <div className="body" style={{backgroundColor: check ? '#111418' : '#282C34'}}>
           <div className="card" >
-            <h5 className="title" >{item.alias}</h5>
+            <h5 className="title" style={{color: check ? '#1174C1' : '#008240'}}>{item.alias}</h5>
             <hr className="hr"></hr>
-            <p className="content" style={{ color: check ? "black": "white"}}>{item.message}</p>
+            <p className="content" style={{color:'white', textAlign: check ? 'right':''}} >{item.message}</p>
           </div>
           <div className="date">
             <p className="date-text">{nowMinuts(item.date)}</p>
