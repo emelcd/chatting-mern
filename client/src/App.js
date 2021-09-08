@@ -54,7 +54,10 @@ const App = () => {
           <img src={item.picture} alt="avatar" />
         </div>
         <div className="contact-item-info">
-          <div style={{color: check ? '#1174C1':''}} className="contact-item-name">
+          <div
+            style={{ color: check ? "#1174C1" : "" }}
+            className="contact-item-name"
+          >
             {item.name.first} {item.name.last}
           </div>
         </div>
@@ -77,23 +80,47 @@ const App = () => {
   const ChatItem = ({ item }) => {
     // return data
     let userData = data.find((user) => user._id === item.user_id);
-    let check = user._id === item.user_id
-    console.log(userData)
+    let check = user._id === item.user_id;
+    console.log(userData);
     return (
-      <div className="message">
-        <div className="user">
-          <img className="img" src={userData.picture} alt="avatar" />
-        </div>
-        <div className="body" style={{backgroundColor: check ? '#111418' : '#282C34'}}>
-          <div className="card" >
-            <h5 className="title" style={{color: check ? '#1174C1' : '#008240'}}>{item.alias}</h5>
+      <div
+        style={{ justifyContent: check ? "flex-end" : "flex-start" }}
+        className="message"
+      >
+        {!check ? (
+          <div className="user">
+            <img className="img" src={userData.picture} alt="avatar" />
+          </div>
+        ) : null}
+
+        <div
+          className="body"
+          style={{ backgroundColor: check ? "#111418" : "#111419" }}
+        >
+          <div className="card">
+            <h5
+              className="title"
+              style={{ color: check ? "#1174C1" : "#008240" }}
+            >
+              {item.alias}
+            </h5>
             <hr className="hr"></hr>
-            <p className="content" style={{color:'white', textAlign: check ? 'right':''}} >{item.message}</p>
+            <p
+              className="content"
+              style={{ color: "white", textAlign: check ? "right" : "" }}
+            >
+              {item.message}
+            </p>
           </div>
           <div className="date">
             <p className="date-text">{nowMinuts(item.date)}</p>
           </div>
         </div>
+        {check ? (
+          <div className="user">
+            <img className="img" src={userData.picture} alt="avatar" />
+          </div>
+        ) : null}
       </div>
     );
   };

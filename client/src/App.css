@@ -143,8 +143,6 @@ body {
   padding: 0.4rem;
   width: 500px;
   border-radius: 1rem;
-  -webkit-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
 }
 
 .App-chat .chat .content .message .body .card .hr {
@@ -168,13 +166,6 @@ body {
 .App-chat .chat .content .message .body .date {
   text-align: right;
   font-size: .8rem;
-}
-
-.App-chat .chat .content .message .body:hover {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
-  -webkit-transform: translateX(2rem);
-          transform: translateX(2rem);
 }
 
 .contact-item {
