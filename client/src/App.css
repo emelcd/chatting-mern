@@ -230,4 +230,38 @@ body {
   -webkit-box-shadow: 0px 0px 5px #21242b;
           box-shadow: 0px 0px 5px #21242b;
 }
+
+@media screen and (max-width: 768px) {
+  .App {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    padding: 0;
+    margin: 0;
+  }
+  .App-contact {
+    display: none;
+  }
+}
+
+.sys-msg {
+  font-size: 3rem;
+  color: white;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  overflow: hidden;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #fafafa;
+  border-radius: 10px;
+}
 /*# sourceMappingURL=App.css.map */

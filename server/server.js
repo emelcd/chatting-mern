@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
-import json from './users.json'
+let count = 0
 
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
@@ -14,6 +14,7 @@ const userSchema = new Schema({
     last: String,
   },
   picture: String,
+  isOnline: Boolean,
 });
 const chatSchema = new Schema({
     alias: String,
@@ -49,6 +50,8 @@ app.get("/", (req, res) => {
       if (err) {
           res.status(500).send(err);
       } else {
+        count++
+        console.log(count, "/")
           res.send(users);
       }
   });
@@ -59,7 +62,10 @@ app.get("/chat", (req, res) => {
         if (err) {
             res.status(500).send(err);
         } else {
+            count++
+            console.log(count, "/chat get")
             res.send(chats.reverse());
+
         }
     });
 });
@@ -70,6 +76,8 @@ app.post('/chat', (req, res) => {
         if (err) {
             res.status(500).send(err);
         } else {
+            count++
+            console.log(count, "/chat post")
             res.send(chat);
         }
     });
@@ -82,12 +90,13 @@ app.get('/user', (req, res) => {
         if (err) {
             res.status(500).send(err);
         } else {
-            // return random user
+            count++
+            console.log(count, "/user get")
             const randomUser = users[Math.floor(Math.random() * users.length)];
             res.send(randomUser);
         }
     });
-
+    
 })
 
 app.get('/delete', (req, res) => {
@@ -111,7 +120,8 @@ app.listen(4000, () => {
 //     const newUser = new User({
 //         id: user.login.uuid,
 //         name : user.name,
-//         picture : user.picture.large
+//         picture : user.picture.large,
+//         isOnline : Math.random() > 0.3 ? true : false
 //     })
 //     newUser.save()
 // })

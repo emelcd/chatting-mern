@@ -5,34 +5,12 @@ import user from "./user.jpg";
 import logo from "./logo.png";
 
 const App = () => {
-  const [data, setData] = useState([]);
+  const [group, setGroup] = useState([]);
   const [chat, setChat] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const [user, setUser] = useState({});
-
-  useEffect(() => {
-    fetch("http://localhost:4000")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    fetch("http://localhost:4000/chat")
-      .then((res) => res.json())
-      .then((data) => {
-        setChat(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(true);
-        setLoading(false);
-      });
-  }, [refresh]);
 
   useEffect(() => {
     fetch("http://localhost:4000/user")
@@ -41,12 +19,42 @@ const App = () => {
         setUser(data);
       });
   }, []);
-  setInterval(() => {
-    setRefresh(!refresh);
-  }, 1000);
 
+  useEffect(() => {
+    fetch("http://localhost:4000")
+      .then((res) => res.json())
+      .then((data) => {
+        setGroup(data.sort((a, b) => a.isOnline + b.isOnline));
+        let currentUser = data.find((s) => s._id === user._id);
+        if (currentUser !== undefined) {
+          console.log(currentUser);
+          let newArr = data.filter((s) => s._id !== user._id);
+          newArr.unshift(currentUser);
+          setGroup([...newArr]);
+
+        }
+        setLoading(true);
+      }).catch((err) => {
+        setError(err);
+      }
+      );
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/chat")
+      .then((res) => res.json())
+      .then((data) => {
+        setChat(data);
+        setLoading(true);
+      })
+      .catch((err) => {
+        setError(true);
+        setLoading(false);
+      });
+  }, [refresh]);
+
+ 
   const ContactItem = ({ item, index }) => {
-    console.log(item._id === user._id);
     let check = item._id === user._id ? true : false;
     return (
       <div className="contact-item">
@@ -55,7 +63,9 @@ const App = () => {
         </div>
         <div className="contact-item-info">
           <div
-            style={{ color: check ? "#1174C1" : "" }}
+            style={{
+              color: check ? "#1174C1" : item.isOnline ? "#70FFCA" : "#21242B",
+            }}
             className="contact-item-name"
           >
             {item.name.first} {item.name.last}
@@ -79,9 +89,8 @@ const App = () => {
 
   const ChatItem = ({ item }) => {
     // return data
-    let userData = data.find((user) => user._id === item.user_id);
+    let userData = group.find((user) => user._id === item.user_id);
     let check = user._id === item.user_id;
-    console.log(userData);
     return (
       <div
         style={{ justifyContent: check ? "flex-end" : "flex-start" }}
@@ -100,7 +109,7 @@ const App = () => {
           <div className="card">
             <h5
               className="title"
-              style={{ color: check ? "#1174C1" : "#008240" }}
+              style={{ color: check ? "#1174C1" : "#70FFCA" }}
             >
               {item.alias}
             </h5>
@@ -125,6 +134,7 @@ const App = () => {
     );
   };
 
+
   return (
     <div className="App">
       <div className="App-contact">
@@ -133,7 +143,7 @@ const App = () => {
         </div>
         <div className="contact">
           <div className="contact-list">
-            {data.map((item, index) => (
+            {group.map((item, index) => (
               <ContactItem key={index} item={item} />
             ))}
           </div>
@@ -174,7 +184,6 @@ const App = () => {
                 })
                   .then((res) => res.json())
                   .then((data) => {
-                    console.log(content);
                     // move the scroll to the bottom
                     content.scrollTop = content.scrollHeight;
                     setRefresh(!refresh);
@@ -191,5 +200,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;
