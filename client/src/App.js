@@ -41,7 +41,9 @@ const App = () => {
         setUser(data);
       });
   }, []);
-
+  setInterval(() => {
+    setRefresh(!refresh);
+  }, 1000);
 
   const ContactItem = ({ item, index }) => {
     console.log(item._id === user._id);

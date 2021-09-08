@@ -34,6 +34,7 @@ A full-stack Chat Application in MERN stack.
 
 ## Features 🔎
 
-1. Api Consumtion
-2. Search By Input or By Category
-3. Save To Server
+1. Real Time Chat
+2. User Auth
+3. Connect to MongoDB
+4. Multiple Chat Rooms

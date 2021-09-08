@@ -96,7 +96,7 @@ body {
           }
         }
         .body {
-
+          
           margin: 0.2rem;
           background-color: $gray;
           padding: 0.4rem;
@@ -124,11 +124,7 @@ body {
             text-align: right;
             font-size: .8rem;
           }
-          transition: all .5s ease-in-out;
-          &:hover {
-            transform: scale(1.1);
-            transform: translateX(2rem);
-          }
+
         }
       }
     }
